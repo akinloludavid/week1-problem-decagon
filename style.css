@@ -1,0 +1,25 @@
+body{
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+  font-size:16px;
+  background-color: whitesmoke;
+}
+
+.wrapper{
+  margin-top:4rem;
+}
+.card{
+  margin-bottom:3rem;
+  border:none;
+  border-radius: 5px;
+  box-shadow: 3px 11px 25px 0px rgba(61, 68, 105, 0.75);
+  -webkit-box-shadow: 3px 11px 25px 0px rgba(61, 68, 105, 0.75);
+  -moz-box-shadow: 3px 11px 25px 0px rgba(61, 68, 105, 0.75);
+}
+.card img {
+  width:100%;
+  margin-bottom: 2rem;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
