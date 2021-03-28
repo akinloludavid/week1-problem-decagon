@@ -1,17 +1,12 @@
 const api = {
-  url: 'https://swapi.dev/api/people/?page=',
-
+  url: 'https://swapi.dev/api/people/?page='
 }
 
 getData = (pageNum = 1) => {
-
   fetch(api.url + pageNum)
     .then(resp => resp.json())
     .then(displayResult)
-
 }
-
-
 
 displayResult = (resp) => {
   let characterName = document.querySelectorAll('.name')
@@ -20,9 +15,9 @@ displayResult = (resp) => {
   let name = document.querySelectorAll('.d-name')
   for (let i = 0; i < resp.results.length; i++) {
     characterName[i].innerHTML = `${resp.results[i].name}`
-    name[i].innerHTML = `Name: ${resp.results[i].name}`
-    characterHeight[i].innerHTML = `Height: ${resp.results[i].height}cm`
-    characterGender[i].innerHTML = `Gender: ${resp.results[i].gender}`
+    name[i].innerHTML = `Name: <strong>${resp.results[i].name}</strong>`
+    characterHeight[i].innerHTML = `Height: <strong>${resp.results[i].height}cm</strong>`
+    characterGender[i].innerHTML = `Gender: <strong>${resp.results[i].gender}</strong>`
   }
 
 }
@@ -31,32 +26,39 @@ getData()
 
 const next = document.querySelector('#next')
 const prev = document.querySelector('#previous')
-
+let pageNum = document.querySelector('#pageNum');
 let page = 1
 let numberOfPages = 9;
-document.querySelector('#pageNum').innerHTML = `${ page}`
-prev.disabled = true;
+pageNum.innerHTML = `${ page}`
 
+
+nextPage = () => {
+  page++
+  if (page > 9) {
+    page = 9
+    alert('You have reached the last page')
+  }
+}
+prevPage = () => {
+  page--
+  if (page < 1) {
+    page = 1
+  }
+}
 
 next.addEventListener('click', evt => {
-  page = (page % numberOfPages) + 1;
-  document.querySelector('#pageNum').innerHTML = `${ page}`
+  evt.preventDefault()
+  nextPage()
+
   getData(page)
-  prev.disabled = false
-  if (page === 9) {
-    next.disabled = true;
-  }
+  pageNum.innerHTML = `${ page}`
+
 })
 
-if (page > 1) {
-  prev.disabled = false;
-}
 prev.addEventListener('click', evt => {
-  page = ((page + numberOfPages + 1) % numberOfPages) - 2;
+  evt.preventDefault()
+  prevPage()
 
-  if (page === 1) prev.disabled = true;
-  document.querySelector('#pageNum').innerHTML = `${ page}`
   getData(page)
-
-
+  pageNum.innerHTML = `${ page}`
 })
